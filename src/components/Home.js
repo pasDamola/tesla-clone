@@ -33,6 +33,21 @@ function Home() {
              leftBtnText="Custom Order"
              rightBtnText="Existing Inventory"
             />
+            <Section 
+             title="Solar for New Roofs"
+             description="Solar roof costs Less Than a New Roof Plus Solar Panels"
+             backgroundImg="solar-roof.jpg"
+             leftBtnText="Order Now"
+             rightBtnText="Learn More"
+            />
+            <Section 
+             title="Accessories"
+             description=""
+             backgroundImg="accessories.jpg"
+             leftBtnText="Shop Now"
+             rightBtnText=""
+            />
+            
         </Container>
     )
 }
