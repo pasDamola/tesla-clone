@@ -1,9 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from "styled-components"
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import { selectCars } from '../features/car/carSlice'
+import  { useSelector } from 'react-redux';
 
 function Header() {
+    const [burgerStatus, setBurgerStatus] = useState(false);
+    const cars = useSelector(selectCars);
+
+    const openBurgerStatus = () => {
+        setBurgerStatus(true)
+    }
+
+    const closeBurgerStatus = () => {
+        setBurgerStatus(false)
+    }
+
     return (
         <Container>
             <a>
@@ -11,28 +24,27 @@ function Header() {
             </a>
 
             <Menu>
-                <a href="#">Model S</a>
-                <a href="#">Model X</a>
-                <a href="#">Model Y</a>
-                <a href="#">Model 3</a>
+                { cars && cars.map((car, index) => (
+                    <a key={index} href="#"> {car} </a>
+                ))}
             </Menu>
 
             <RightMenu>
                 <a href="#">Shop</a>
                 <a href="#">Tesla Account</a>
-                <CustomMenu/>
+                <CustomMenu onClick={openBurgerStatus}/>
             </RightMenu>
-            <BurgerNav>
+            <BurgerNav show={burgerStatus}>
                 <CloseWrapper >
-                    <CustomClose />
+                    <CustomClose onClick={closeBurgerStatus} />
                 </CloseWrapper>
                 <li><a href="#">Existing Inventory</a></li>
                 <li><a href="#">Used Inventory</a></li>
                 <li><a href="#">CyberTruck</a></li>
-                <li><a href="#">Existing Inventory</a></li>
-                <li><a href="#">Existing Inventory</a></li>
-                <li><a href="#">Existing Inventory</a></li>
-                <li><a href="#">Existing Inventory</a></li>
+                <li><a href="#">Trade-In</a></li>
+                <li><a href="#">Roadster</a></li>
+                <li><a href="#">Semi</a></li>
+                <li><a href="#">Charging</a></li>
             </BurgerNav>
         </Container>
     )
@@ -107,6 +119,8 @@ const BurgerNav = styled.div`
   a {
       font-weight: 600;
   }
+  transform: ${props => props.show ? 'translateX(0)' : 'translateX(100%)'};
+  transition: transform 0.2s;
 `
 
 const CustomClose = styled(CloseIcon)`
